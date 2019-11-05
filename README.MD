@@ -6,3 +6,4 @@ DES python版
 致謝
 ----
   * BurgerTown
+  * 劉春林 老師
