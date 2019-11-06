@@ -100,7 +100,7 @@ d = (1, 1, 2, 2,
 
 
 # ####定義GUI界面####
-window = tk.Tk("")
+window = tk.Tk()
 window.title('DES加解密工具')
 window.geometry('768x432')
 window.resizable(False, False)
