@@ -1,16 +1,16 @@
-DES python版 
-============
-1. ~~目前只可以在python 2運行~~ 
-2. 用TKINTER寫一個GUI界面
+# DES python 版
 
-#### 接下來要做的事：
+1. ~~目前只可以在 python 2 運行~~
+2. 用 TKINTER 寫一個 GUI 界面
+
+## TODO
 
 - [ ] : 解決中文輸入問題
 - [ ] : 加入加密算法
 - [ ] : 加入解密算法
-- [ ] : 打包成exe
+- [ ] : 打包成 exe
 
-致謝
-----
-  * BurgerTown
-  * 劉春林 老師
+## 致謝
+
+* BurgerTown
+* 劉春林 老師
