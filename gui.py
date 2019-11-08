@@ -52,16 +52,17 @@ class Gui:
         window.mainloop()
 
     def des_en(self):
-        plain_text = self.plain_text.get(0.0, 'end')
-        # key_key = self.key_text.get(0.0, 'end')
-        # result = des_decode()
-        # print(result)
+        plain_text = self.plain_text.get(0.0, 'end').split('\n')[0]
+        key_text = self.key_text.get()
+        # return_text = DES().decrypt(cypher_text, key_text).replace('\0', '')
+        # self.plain_text.insert('end', return_text)
+        # self.window.clipboard_clear()
+        # self.window.clipboard_append(return_text)
 
     def des_de(self):
         cypher_text = self.cypher_text.get(0.0, 'end').split('\n')[0]
         key_text = self.key_text.get()
-        return_text = DES().decrypt(cypher_text, key_text)
-        return_text = return_text.replace('\0', '')
+        return_text = DES().decrypt(cypher_text, key_text).replace('\0', '')
         self.plain_text.insert('end', return_text)
         self.window.clipboard_clear()
         self.window.clipboard_append(return_text)
