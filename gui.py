@@ -25,8 +25,9 @@ class Gui:
                                   height=9, width=82)
         self.plain_text.place(x=140, y=30)
 
-        self.key_text = tk.Entry(
-            window, show='*', textvariable=key_user_input).place(x=138, y=163, width=582, height=26)
+        self.key_text = tk.Entry(window, show='*')
+        self.key_text.place(x=138, y=163, width=582, height=26)
+        # text variable暫時不用
 
         self.cypher_text = tk.Text(window,
                                    highlightthickness=1.2,
@@ -52,7 +53,7 @@ class Gui:
         window.mainloop()
 
     def des_en(self):
-        pass
+        print(self.key_text.get())
 
     def des_de(self):
         pass
