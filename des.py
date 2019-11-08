@@ -1,4 +1,4 @@
-from des_decrypt import DES_Decrypt
+from des_decrypt import DESDecrypt
 
 
 class DES:
@@ -6,8 +6,8 @@ class DES:
         pass
 
     def decrypt(self, from_code, key):
-        key = self._to_hex(key)
-        des_encrypt = DES_Decrypt()
+        key = self._to_hex(self, key)
+        des_encrypt = DESDecrypt()
         key_len = len(key)
         string_len = len(from_code)
         if string_len % 16 != 0:
@@ -15,15 +15,17 @@ class DES:
         if string_len < 1 or key_len < 1:
             return False
         key_code = des_encrypt.decode(from_code, key, key_len, string_len)
-        return self._to_unicode(key_code)
+        return self._to_unicode(self, key_code)
 
-        # 把unicode字符轉換為16進制
+    # 把unicode字符轉換為16進制
+    @staticmethod
     def _to_hex(self, string):
         return_string = ''
         for i in string:
             return_string += "%02x" % ord(i)
         return return_string
 
+    @staticmethod
     def _to_unicode(self, string):
         return_string = ''
         string_len = len(string)

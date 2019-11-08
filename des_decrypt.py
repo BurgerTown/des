@@ -1,9 +1,9 @@
 from des_struct import *
 
-__all__ = ['des_decode']
+__all__ = ['DESDecrypt']
 
 
-class DES_Decrypt:
+class DESDecrypt:
     def __init__(self):
         pass
 
