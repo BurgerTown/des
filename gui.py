@@ -1,6 +1,5 @@
 import tkinter as tk
-from des_encryption import des_encode
-from des_decryption import des_decode
+from des import DES
 
 
 class Gui:
@@ -53,10 +52,18 @@ class Gui:
         window.mainloop()
 
     def des_en(self):
-        print(self.key_text.get())
+        plain_text = self.plain_text.get(0.0, 'end')
+        key_key = self.key_text.get(0.0, 'end')
+        # result = des_decode()
+        # print(result)
 
     def des_de(self):
-        pass
+        cypher_text = self.cypher_text.get(0.0, 'end').split('\n')[0]
+        print(f'cypher text: {cypher_text} length is {len(cypher_text)}')
+        key_text = self.key_text.get()
+        print(f'key: {key_text}')
+        return_text = DES().decrypt(cypher_text, key_text)
+        print(return_text)
 
     def des_clear(self):
         pass
