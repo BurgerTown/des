@@ -54,21 +54,32 @@ class Gui:
     def des_en(self):
         plain_text = self.plain_text.get(0.0, 'end').split('\n')[0]
         key_text = self.key_text.get()
-        # return_text = DES().decrypt(cypher_text, key_text).replace('\0', '')
-        # self.plain_text.insert('end', return_text)
-        # self.window.clipboard_clear()
-        # self.window.clipboard_append(return_text)
+        if len(plain_text) < 1:
+            tk.messagebox.showerror(title=None, message='請輸入明文！！！')
+            # TODO: 退去des_en()
+        if len(key_text) < 1:
+            tk.messagebox.showerror(title=None, message='請輸入密碼！！！')
+            # TODO: 退出des_en()
+        return_text = DES().encrypt(plain_text, key_text)
+        print(return_text)
+        self.plain_text.delete('1.0', 'end')
+        self.cypher_text.delete('1.0', 'end')
+        self.cypher_text.insert('end', return_text)
+        self.window.clipboard_clear()
+        self.window.clipboard_append(return_text)
 
     def des_de(self):
         cypher_text = self.cypher_text.get(0.0, 'end').split('\n')[0]
         key_text = self.key_text.get()
         if len(cypher_text) < 1:
             tk.messagebox.showerror(title=None, message='請輸入密文！！！')
-            # TODO: 退去if
+            # TODO: 退去des_de()
         if len(key_text) < 1:
             tk.messagebox.showerror(title=None, message='請輸入密碼！！！')
-            # TODO: 退出if
+            # TODO: 退出des_de()
         return_text = DES().decrypt(cypher_text, key_text).replace('\0', '')
+        self.plain_text.delete('1.0', 'end')
+        self.cypher_text.delete('1.0', 'end')
         self.plain_text.insert('end', return_text)
         self.window.clipboard_clear()
         self.window.clipboard_append(return_text)
