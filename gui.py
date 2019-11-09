@@ -4,7 +4,7 @@ from des import DES
 
 
 class Gui:
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         # 定義GUI界面
         window = tk.Tk()
         window.title('DES加解密應用程式')
@@ -62,6 +62,12 @@ class Gui:
     def des_de(self):
         cypher_text = self.cypher_text.get(0.0, 'end').split('\n')[0]
         key_text = self.key_text.get()
+        if len(cypher_text) < 1:
+            tk.messagebox.showerror(title=None, message='請輸入密文！！！')
+            # TODO: 退去if
+        if len(key_text) < 1:
+            tk.messagebox.showerror(title=None, message='請輸入密碼！！！')
+            # TODO: 退出if
         return_text = DES().decrypt(cypher_text, key_text).replace('\0', '')
         self.plain_text.insert('end', return_text)
         self.window.clipboard_clear()
