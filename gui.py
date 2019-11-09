@@ -18,6 +18,8 @@ class Gui:
         tk.Label(master=window, text='請在這裡輸入密文：').place(
             x=10, y=245, width=120, height=26)
 
+        tk.Scrollbar()
+
         self.plain_text = tk.Text(master=window,
                                   highlightthickness=1.2,
                                   highlightbackground='#CCCCCC',
@@ -26,7 +28,7 @@ class Gui:
         self.plain_text.place(x=140, y=30)
 
         self.key_text = tk.Entry(master=window, show='*')
-        self.key_text.place(x=138, y=163, width=582, height=26)
+        self.key_text.place(x=138, y=163, width=500, height=26)
 
         self.cypher_text = tk.Text(master=window,
                                    highlightthickness=1.2,
@@ -34,6 +36,8 @@ class Gui:
                                    highlightcolor='#A1CBF1',
                                    height=9, width=82)
         self.cypher_text.place(x=140, y=203)
+
+        self.display_or_not = tk.IntVar()
 
         encrypt_button = tk.Button(
             master=window, text='DES加密', width=50, height=30, command=self.des_en)
@@ -47,6 +51,13 @@ class Gui:
         decrypt_button = tk.Button(
             master=window, text='退出程式', width=50, height=30, command=self.des_exit)
         decrypt_button.place(x=500, y=390, width=80, height=26)
+        password_display_selection = tk.Checkbutton(
+            master=window, text='顯示密碼',
+            variable=self.display_or_not,
+            onvalue=1, offvalue=0,
+            selectcolor="red",
+            command=self.display_password)
+        password_display_selection.place(x=640, y=163)
 
         self.window = window
         window.mainloop()
@@ -61,7 +72,6 @@ class Gui:
             tk.messagebox.showerror(title=None, message='請輸入密碼！！！')
             # TODO: 退出des_en()
         return_text = DES().encrypt(plain_text, key_text)
-        print(return_text)
         self.plain_text.delete('1.0', 'end')
         self.cypher_text.delete('1.0', 'end')
         self.cypher_text.insert('end', return_text)
@@ -92,6 +102,15 @@ class Gui:
     def des_exit(self):
         if tk.messagebox.askyesno(title='', message='你確定現在要退出本程式嗎？'):
             self.window.quit()
+
+    def display_password(self):
+        # TODO： 改變參數 （下面的代碼不可用）
+        if self.display_or_not.get() == 1:
+            self.key_text = tk.Entry(master=self.window, show=None)
+            print('1')
+        if self.display_or_not.get() == 0:
+            self.key_text = tk.Entry(master=self.window, show='*')
+            print('0')
 
 
 if __name__ == '__main__':
