@@ -40,17 +40,25 @@ class Gui:
         self.display_or_not = tk.IntVar()
 
         encrypt_button = tk.Button(
-            master=window, text='DES加密', width=50, height=30, command=self.des_en)
+            master=window, text='DES加密', width=50,
+            height=30, command=lambda: self.des('encrypt'))
         encrypt_button.place(x=200, y=350, width=80, height=26)
+
         decrypt_button = tk.Button(
-            master=window, text='DES解密', width=50, height=30, command=self.des_de)
+            master=window, text='DES解密', width=50,
+            height=30, command=lambda: self.des('decrypt'))
         decrypt_button.place(x=500, y=350, width=80, height=26)
-        encrypt_button = tk.Button(
-            master=window, text='清空數據', width=50, height=30, command=self.des_clear)
-        encrypt_button.place(x=200, y=390, width=80, height=26)
-        decrypt_button = tk.Button(
-            master=window, text='退出程式', width=50, height=30, command=self.des_exit)
-        decrypt_button.place(x=500, y=390, width=80, height=26)
+
+        clear_button = tk.Button(
+            master=window, text='清空數據', width=50,
+            height=30, command=self.des_clear)
+        clear_button.place(x=200, y=390, width=80, height=26)
+
+        exit_button = tk.Button(
+            master=window, text='退出程式', width=50,
+            height=30, command=self.des_exit)
+        exit_button.place(x=500, y=390, width=80, height=26)
+
         password_display_selection = tk.Checkbutton(
             master=window, text='顯示密碼',
             variable=self.display_or_not,
@@ -62,35 +70,33 @@ class Gui:
         self.window = window
         window.mainloop()
 
-    def des_en(self):
-        plain_text = self.plain_text.get(0.0, 'end').split('\n')[0]
+    def des(self, type):
         key_text = self.key_text.get()
-        if len(plain_text) < 1:
-            tk.messagebox.showerror(title=None, message='請輸入明文！！！')
-            # TODO: 退去des_en()
         if len(key_text) < 1:
             tk.messagebox.showerror(title=None, message='請輸入密碼！！！')
-            # TODO: 退出des_en()
-        return_text = DES().encrypt(plain_text, key_text)
-        self.plain_text.delete('1.0', 'end')
-        self.cypher_text.delete('1.0', 'end')
-        self.cypher_text.insert('end', return_text)
-        self.window.clipboard_clear()
-        self.window.clipboard_append(return_text)
+            return False
 
-    def des_de(self):
-        cypher_text = self.cypher_text.get(0.0, 'end').split('\n')[0]
-        key_text = self.key_text.get()
-        if len(cypher_text) < 1:
-            tk.messagebox.showerror(title=None, message='請輸入密文！！！')
-            # TODO: 退去des_de()
-        if len(key_text) < 1:
-            tk.messagebox.showerror(title=None, message='請輸入密碼！！！')
-            # TODO: 退出des_de()
-        return_text = DES().decrypt(cypher_text, key_text).replace('\0', '')
-        self.plain_text.delete('1.0', 'end')
-        self.cypher_text.delete('1.0', 'end')
-        self.plain_text.insert('end', return_text)
+        if type == 'encrypt':
+            plain_text = self.plain_text.get(0.0, 'end').split('\n')[0]
+            if len(plain_text) < 1:
+                tk.messagebox.showerror(title=None, message='請輸入明文！！！')
+                return False
+            return_text = DES().encrypt(plain_text, key_text)
+            self.plain_text.delete('1.0', 'end')
+            self.cypher_text.delete('1.0', 'end')
+            self.cypher_text.insert('end', return_text)
+
+        else:
+            cypher_text = self.cypher_text.get(0.0, 'end').split('\n')[0]
+            if len(cypher_text) < 1:
+                tk.messagebox.showerror(title=None, message='請輸入密文！！！')
+                return False
+            return_text = DES().decrypt(cypher_text, key_text)
+            self.cypher_text.delete('1.0', 'end')
+            self.plain_text.delete('1.0', 'end')
+            self.plain_text.insert('end', return_text)
+
+        print(return_text)
         self.window.clipboard_clear()
         self.window.clipboard_append(return_text)
 
@@ -104,13 +110,10 @@ class Gui:
             self.window.quit()
 
     def display_password(self):
-        # TODO： 改變參數 （下面的代碼不可用）
         if self.display_or_not.get() == 1:
-            self.key_text = tk.Entry(master=self.window, show=None)
-            print('1')
-        if self.display_or_not.get() == 0:
-            self.key_text = tk.Entry(master=self.window, show='*')
-            print('0')
+            self.key_text['show'] = ''
+        else:
+            self.key_text['show'] = '*'
 
 
 if __name__ == '__main__':

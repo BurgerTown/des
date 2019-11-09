@@ -14,7 +14,6 @@ class DES:
         key_len = len(key)
         string_len = len(from_code)
         if string_len < 1 or key_len < 1:
-            print('error input')
             return False
         key_code = des_encrypt.code(from_code, key, string_len, key_len)
         return key_code
