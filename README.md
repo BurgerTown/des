@@ -6,12 +6,13 @@
 ## TODO
 
 - [x] 解決中文輸入問題（Maybe）
-- [ ] 加入加密算法
-- [ ] 加入解密算法
+- [x] 加入加密算法
+- [x] 加入解密算法
 - [ ] 打包成 exe
-- [ ] 重写成类 (Working)
-- [ ] 增加 gitignore
-- [ ] 统一使用 `Text` 或者 `Entry` Widget
+- [x] 重写成类 (Maybe)
+- [x] 增加 gitignore
+- [x] 统一使用 `Text` 或者 `Entry` Widget
+- [ ] 中文字符加密后解密后的结果有错
 
 ## 致謝
 
